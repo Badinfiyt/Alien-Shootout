@@ -104,9 +104,9 @@ def menu(main, run):
                 sys.exit()
   
     pygame.display.update()
-
-run = menu(main, run)[0]
-main = menu(main, run)[1]
+returnValues = menu(main, run)
+run = returnValues[0]
+main = returnValues[1]
 #Game run
 if run:
   pygame.display.set_caption('Space Invaders')
