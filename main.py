@@ -10,13 +10,13 @@ import random
 #Initiation
 pygame.init()
 
-WIDTH = 1280
+Width = 1280
 HEIGHT = 720
-SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+SCREEN = pygame.display.set_mode((Width, HEIGHT))
 pygame.display.set_caption("Menu")
 
-BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (WIDTH,HEIGHT))
-TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (Width,HEIGHT))
+TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (Width, HEIGHT))
 
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
@@ -25,7 +25,7 @@ def gameover():
   pygame.display.set_caption('Game Over')
   global main, run, score
   #not working
-  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (WIDTH, HEIGHT))
+  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (Width, HEIGHT))
   pygame.display.set_mode((1280, 720))
   while True:
     SCREEN.blit(GM, (0, 0))
@@ -40,7 +40,7 @@ def gameover():
                             text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
   
     SCREEN.blit(MENU_TEXT, MENU_RECT)
-    SCREEN.blit(PREV_SCORE_TEXT, (WIDTH - PREV_SCORE_TEXT.get_width() - 450, 550))
+    SCREEN.blit(PREV_SCORE_TEXT, (Width - PREV_SCORE_TEXT.get_width() - 450, 550))
   
     for button in [QUIT_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)
@@ -75,7 +75,7 @@ def menu(main, run):
   
     MENU_MOUSE_POS = pygame.mouse.get_pos()
     #b68f40 line 43 end, if added remove 41 and 42
-    MENU_TEXT = get_font(80).render("SPACE INVADERS", True, "white")
+    MENU_TEXT = get_font(80).render("ALIEN INVADERS", True, "white")
     MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
     PREV_SCORE_TEXT = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
     PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
@@ -84,7 +84,7 @@ def menu(main, run):
                             text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
   
     SCREEN.blit(MENU_TEXT, MENU_RECT)
-    SCREEN.blit(PREV_SCORE_TEXT, (WIDTH - PREV_SCORE_TEXT.get_width() - 450, 550))
+    SCREEN.blit(PREV_SCORE_TEXT, (Width - PREV_SCORE_TEXT.get_width() - 450, 550))
   
     for button in [PLAY_BUTTON, QUIT_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)
