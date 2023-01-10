@@ -6,7 +6,6 @@ from alien import Alien, Extra
 from random import choice, randint
 from laser import Laser
 from button import Button
-from gameover import Gameover
 import random
 #Initiation
 pygame.init()
@@ -23,22 +22,20 @@ def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
 
 def gameover():
-  pygame.init()
+  pygame.display.set_caption('Game Over')
   global main, run, score
+  #not working
   GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (WIDTH, HEIGHT))
-  
-  while True:  
-
-    MENU_MOUSE_POS = pygame.mouse.get_pos()
-    pygame.display.set_mode((1280, 720))
-    SCREEN.blit(BG, (0, 0))
-    SCREEN.blit(TV, (0, 0))
+  pygame.display.set_mode((1280, 720))
+  while True:
+    SCREEN.blit(GM, (0, 0))
   
     MENU_MOUSE_POS = pygame.mouse.get_pos()
-    #b68f40 line 43 end, if added remove 41 and 42
     MENU_TEXT = get_font(80).render("GAME OVER", True, "white")
     MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
     PREV_SCORE_TEXT = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
+    #RESTART_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
+                            #text_input="PLAY", font=get_font(50), base_color="white", hovering_color="#999999")
     QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 400), 
                             text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
   
@@ -53,13 +50,17 @@ def gameover():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        #if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if RESTART_BUTTON.checkForInput(MENU_MOUSE_POS):
+              run = True
+              main = False
+              return run, main 
         if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-          pygame.quit()
-          sys.exit()
+            pygame.quit()
+            sys.exit()
   
     pygame.display.update()
-
+    
 main = True
 run = False
 score = 0
@@ -116,7 +117,7 @@ if run:
       self.player = pygame.sprite.GroupSingle(player_sprite)
   
   		# health and score setup
-      self.lives = 3
+      self.lives = 1
       self.live_surf = pygame.image.load('player.png').convert_alpha()
       self.live_x_start_pos = screen_width - (self.live_surf.get_size()[0] * 2 + 20)
       self.score = 0

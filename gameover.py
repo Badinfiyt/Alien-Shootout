@@ -25,11 +25,9 @@ class Gameover():
                                 text_input="GAME OVER", font=get_font(50), base_color="white", hovering_color="#999999")
         QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 400), 
                                 text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
-
         for button in [GAME_OVER_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
-            
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
