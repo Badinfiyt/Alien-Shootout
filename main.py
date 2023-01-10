@@ -6,6 +6,7 @@ from alien import Alien, Extra
 from random import choice, randint
 from laser import Laser
 from button import Button
+from gameover import Gameover
 import random
 #Initiation
 pygame.init()
@@ -22,8 +23,42 @@ def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
 
 def gameover():
-  GM = pygame.transform.scale(pygame.image.load('game_over.png').convert_alpha(), (WIDTH, HEIGHT))
-  SCREEN.blit(GM, (0, 0))
+  pygame.init()
+  global main, run, score
+  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (WIDTH, HEIGHT))
+  
+  while True:  
+
+    MENU_MOUSE_POS = pygame.mouse.get_pos()
+    pygame.display.set_mode((1280, 720))
+    SCREEN.blit(BG, (0, 0))
+    SCREEN.blit(TV, (0, 0))
+  
+    MENU_MOUSE_POS = pygame.mouse.get_pos()
+    #b68f40 line 43 end, if added remove 41 and 42
+    MENU_TEXT = get_font(80).render("GAME OVER", True, "white")
+    MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
+    PREV_SCORE_TEXT = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
+    QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 400), 
+                            text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
+  
+    SCREEN.blit(MENU_TEXT, MENU_RECT)
+    SCREEN.blit(PREV_SCORE_TEXT, (WIDTH - PREV_SCORE_TEXT.get_width() - 450, 550))
+  
+    for button in [QUIT_BUTTON]:
+        button.changeColor(MENU_MOUSE_POS)
+        button.update(SCREEN)
+        
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        #if event.type == pygame.MOUSEBUTTONDOWN:
+        if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+          pygame.quit()
+          sys.exit()
+  
+    pygame.display.update()
 
 main = True
 run = False
@@ -74,9 +109,8 @@ if run:
   pygame.display.set_caption('Space Invaders')
   class Game:
 
-    def __init__(self):    
+    def __init__(self):
       global main, run
-      
       # Player setup
       player_sprite = Player((screen_width / 2,screen_height),screen_width, 5)
       self.player = pygame.sprite.GroupSingle(player_sprite)
@@ -190,8 +224,10 @@ if run:
             laser.kill()
             self.lives -= 1
             if self.lives <= 0:
-              pygame.quit()
-              sys.exit()
+              gameover()
+              #pygame.quit()
+              #sys.exit()
+              
   
       # aliens
       if self.aliens:
@@ -199,8 +235,9 @@ if run:
           pygame.sprite.spritecollide(alien,self.blocks,True)
   
           if pygame.sprite.spritecollide(alien,self.player,False):
-            pygame.quit()
-            sys.exit()
+            gameover() 
+            #pygame.quit()
+            #sys.exit()
 
     def display_lives(self):
       for live in range(self.lives - 1):
@@ -218,7 +255,7 @@ if run:
         victory_surf = self.font.render('You won',False,'white')
         victory_rect = victory_surf.get_rect(center = (screen_width / 2, screen_height / 2))
         screen.blit(victory_surf,victory_rect)
-        menu()
+        menu(main, run)
   
     def run(self):
       self.player.update()
