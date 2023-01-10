@@ -69,8 +69,6 @@ def menu(main, run):
 
 run = menu(main, run)[0]
 main = menu(main, run)[1]
-print(run)
-print(main)
 #Game run
 if run:
   pygame.display.set_caption('Space Invaders')
