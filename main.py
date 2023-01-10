@@ -10,13 +10,13 @@ import random
 #Initiation
 pygame.init()
 
-Width = 1280
+width = 1280
 HEIGHT = 720
-SCREEN = pygame.display.set_mode((Width, HEIGHT))
+SCREEN = pygame.display.set_mode((width, HEIGHT))
 pygame.display.set_caption("Menu")
 
-BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (Width,HEIGHT))
-TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (Width, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (width,HEIGHT))
+TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (width, HEIGHT))
 
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
@@ -25,7 +25,7 @@ def gameover():
   pygame.display.set_caption('Game Over')
   global main, run, score
   #not working
-  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (Width, HEIGHT))
+  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, HEIGHT))
   pygame.display.set_mode((1280, 720))
   while True:
     SCREEN.blit(GM, (0, 0))
@@ -40,7 +40,7 @@ def gameover():
                             text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
   
     SCREEN.blit(MENU_TEXT, MENU_RECT)
-    SCREEN.blit(PREV_SCORE_TEXT, (Width - PREV_SCORE_TEXT.get_width() - 450, 550))
+    SCREEN.blit(PREV_SCORE_TEXT, (width - PREV_SCORE_TEXT.get_width() - 450, 550))
   
     for button in [QUIT_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)
@@ -84,7 +84,7 @@ def menu(main, run):
                             text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
   
     SCREEN.blit(MENU_TEXT, MENU_RECT)
-    SCREEN.blit(PREV_SCORE_TEXT, (Width - PREV_SCORE_TEXT.get_width() - 450, 550))
+    SCREEN.blit(PREV_SCORE_TEXT, (width - PREV_SCORE_TEXT.get_width() - 450, 550))
   
     for button in [PLAY_BUTTON, QUIT_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)

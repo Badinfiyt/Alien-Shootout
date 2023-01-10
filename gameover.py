@@ -11,9 +11,9 @@ import random
 
 class Gameover():
     def game_over():
-        Width = 1280
+        width = 1280
         HEIGHT = 720
-        SCREEN = pygame.display.set_mode((Width, HEIGHT))
+        SCREEN = pygame.display.set_mode((width, HEIGHT))
         pygame.display.set_caption("Game Over")
 
         def get_font(size): # Returns Press-Start-2P in the desired size
