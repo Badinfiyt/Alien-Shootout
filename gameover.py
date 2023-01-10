@@ -12,8 +12,8 @@ import random
 class Gameover():
     def game_over():
         width = 1280
-        HEIGHT = 720
-        SCREEN = pygame.display.set_mode((width, HEIGHT))
+        height = 720
+        screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption("Game Over")
 
         def get_font(size): # Returns Press-Start-2P in the desired size
@@ -27,7 +27,7 @@ class Gameover():
                                 text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
         for button in [GAME_OVER_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
-            button.update(SCREEN)
+            button.update(screen)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

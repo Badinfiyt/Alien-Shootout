@@ -11,12 +11,12 @@ import random
 pygame.init()
 
 width = 1280
-HEIGHT = 720
-SCREEN = pygame.display.set_mode((width, HEIGHT))
+height = 720
+screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Menu")
 
-BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (width,HEIGHT))
-TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (width, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (width,height))
+TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (width, height))
 
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
@@ -25,10 +25,10 @@ def gameover():
   pygame.display.set_caption('Game Over')
   global main, run, score
   #not working
-  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, HEIGHT))
+  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, height))
   pygame.display.set_mode((1280, 720))
   while True:
-    SCREEN.blit(GM, (0, 0))
+    screen.blit(GM, (0, 0))
   
     MENU_MOUSE_POS = pygame.mouse.get_pos()
     MENU_TEXT = get_font(80).render("TRY AGAIN", True, "white")
@@ -39,15 +39,15 @@ def gameover():
     QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 450), 
                             text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
   
-    SCREEN.blit(MENU_TEXT, MENU_RECT)
-    SCREEN.blit(PREV_SCORE_TEXT, (width - PREV_SCORE_TEXT.get_width() - 450, 550))
+    screen.blit(MENU_TEXT, MENU_RECT)
+    screen.blit(PREV_SCORE_TEXT, (width - PREV_SCORE_TEXT.get_width() - 450, 550))
   
     for button in [QUIT_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)
-        button.update(SCREEN)
+        button.update(screen)
     for button in [RESTART_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)
-        button.update(SCREEN)
+        button.update(screen)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -70,8 +70,8 @@ score = 0
 #Main menu system 
 def menu(main, run):
   while main:
-    SCREEN.blit(BG, (0, 0))
-    SCREEN.blit(TV, (0, 0))
+    screen.blit(BG, (0, 0))
+    screen.blit(TV, (0, 0))
   
     MENU_MOUSE_POS = pygame.mouse.get_pos()
     #b68f40 line 43 end, if added remove 41 and 42
@@ -83,12 +83,12 @@ def menu(main, run):
     QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 400), 
                             text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
   
-    SCREEN.blit(MENU_TEXT, MENU_RECT)
-    SCREEN.blit(PREV_SCORE_TEXT, (width - PREV_SCORE_TEXT.get_width() - 450, 550))
+    screen.blit(MENU_TEXT, MENU_RECT)
+    screen.blit(PREV_SCORE_TEXT, (width - PREV_SCORE_TEXT.get_width() - 450, 550))
   
     for button in [PLAY_BUTTON, QUIT_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)
-        button.update(SCREEN)
+        button.update(screen)
         
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
