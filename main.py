@@ -1,3 +1,4 @@
+print("nigger faggot")
 import pygame, sys
 from player import Player
 import obstacle
