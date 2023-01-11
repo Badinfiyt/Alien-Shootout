@@ -28,7 +28,7 @@ def gameover():
   #global variable to make sure everything is included correctly, take OOP approach instead?
   global main, run, score
   #not working
-  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width), height)
+  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, height))
   pygame.display.set_mode((1280, 720))
   
   while True:
@@ -67,11 +67,15 @@ def gameover():
         #when mouse cursor is moved checks for input in restart and quit, restart = runs game again, quit = pygame stops and sys exit
         if event.type == pygame.MOUSEBUTTONDOWN:
             if restartButton.checkForInput(menuMousePos):
-              run = True
-              main = False
-              width = 1280
-              height = 720
-              return run, main 
+              screen.fill((30,30,30))  
+              game.run()
+              crt.draw() 
+              pygame.display.flip()
+              clock.tick(60)
+              
+              #run = True
+              #main = False
+              #return run, main
             if quitButton.checkForInput(menuMousePos):
               pygame.quit()
               sys.exit()
@@ -138,7 +142,7 @@ if run:
       self.player = pygame.sprite.GroupSingle(playerSprite)
   
   		# health and score setup
-      self.lives = 1
+      self.lives = 3
       self.liveSurf = pygame.image.load('player.png').convert_alpha()
       self.liveXStartPos = screenWidth - (self.liveSurf.get_size()[0] * 2 + 20)
       self.score = 0

@@ -9,8 +9,8 @@ class Button():
 		self.text = self.font.render(self.textInput, True, self.baseColor)
 		if self.image is None:
 			self.image = self.text
-		self.rect = self.image.getRect(center=(self.x_pos, self.y_pos))
-		self.textRect = self.text.getRect(center=(self.x_pos, self.y_pos))
+		self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+		self.textRect = self.text.get_rect(center=(self.x_pos, self.y_pos))
 
 	def update(self, screen):
 		if self.image is not None:
