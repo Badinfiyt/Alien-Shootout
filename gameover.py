@@ -1,3 +1,7 @@
+#***
+#FILE NOT USED, IGNORE
+#***
+
 import pygame, sys
 from player import Player
 import obstacle
