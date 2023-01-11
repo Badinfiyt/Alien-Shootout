@@ -15,12 +15,12 @@ class Alien(pygame.sprite.Sprite):
 		self.rect.x += direction
 
 class Extra(pygame.sprite.Sprite):
-	def __init__(self,side,screen_width):
+	def __init__(self,side,screenWidth):
 		super().__init__()
 		self.image = pygame.image.load('extra.png').convert_alpha()
 		
 		if side == 'right':
-			x = screen_width + 50
+			x = screenWidth + 50
 			self.speed = - 3
 		else:
 			x = -50

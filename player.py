@@ -7,15 +7,15 @@ class Player(pygame.sprite.Sprite):
 		self.image = pygame.image.load('player.png').convert_alpha()
 		self.rect = self.image.get_rect(midbottom = pos)
 		self.speed = speed
-		self.max_x_constraint = constraint
+		self.maxXConstraint = constraint
 		self.ready = True
-		self.laser_time = 0
-		self.laser_cooldown = 600
+		self.laserTime = 0
+		self.laserCooldown = 600
 
 		self.lasers = pygame.sprite.Group()
 
-		self.laser_sound = pygame.mixer.Sound('laser.wav')
-		self.laser_sound.set_volume(0.5)
+		self.laserSound = pygame.mixer.Sound('laser.wav')
+		self.laserSound.set_volume(0.5)
 
 	def get_input(self):
 		keys = pygame.key.get_pressed()
@@ -28,20 +28,20 @@ class Player(pygame.sprite.Sprite):
 		if keys[pygame.K_SPACE] and self.ready:
 			self.shoot_laser()
 			self.ready = False
-			self.laser_time = pygame.time.get_ticks()
-			self.laser_sound.play()
+			self.laserTime = pygame.time.get_ticks()
+			self.laserSound.play()
 
 	def recharge(self):
 		if not self.ready:
-			current_time = pygame.time.get_ticks()
-			if current_time - self.laser_time >= self.laser_cooldown:
+			currentTime = pygame.time.get_ticks()
+			if currentTime - self.laserTime >= self.laserCooldown:
 				self.ready = True
 
 	def constraint(self):
 		if self.rect.left <= 0:
 			self.rect.left = 0
-		if self.rect.right >= self.max_x_constraint:
-			self.rect.right = self.max_x_constraint
+		if self.rect.right >= self.maxXConstraint:
+			self.rect.right = self.maxXConstraint
 
 	def shoot_laser(self):
 		self.lasers.add(Laser(self.rect.center,-8,self.rect.bottom))

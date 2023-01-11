@@ -10,13 +10,13 @@ import random
 #Initiatizes pygame
 pygame.init()
 
-WIDTH = 1280
-HEIGHT = 720
-SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+width = 1280
+height = 720
+screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Menu")
 
-BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (WIDTH,HEIGHT))
-TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (width,height))
+TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (width, height))
 
 #acquires font file from assets subfolder
 def get_font(size): # Returns Press-Start-2P in the desired size
@@ -28,36 +28,36 @@ def gameover():
   #global variable to make sure everything is included correctly, take OOP approach instead?
   global main, run, score
   #not working
-  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (WIDTH, HEIGHT))
+  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width), height))
   pygame.display.set_mode((1280, 720))
   
   while True:
-    SCREEN.blit(GM, (0, 0))
+    screen.blit(GM, (0, 0))
   
     #retracts cursor position using .get_pos()
-    MENU_MOUSE_POS = pygame.mouse.get_pos()
+    menuMousePos = pygame.mouse.get_pos()
     #game over menu title set to 'try again'
-    MENU_TEXT = get_font(80).render("TRY AGAIN", True, "white")
+    menuText = get_font(80).render("TRY AGAIN", True, "white")
     #declares rect value and draws a rectangle starting from center position(640, 100)
-    MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
+    menuRect = menuText.get_rect(center=(640, 100))
     #shows score from previous game (stored in "score")
-    PREV_SCORE_TEXT = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
+    prevScoreText = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
     #restart button function, using play rect from previous game, still in development***
-    RESTART_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 225), 
-                            text_input="RESTART", font=get_font(50), base_color="white", hovering_color="#999999")
+    restartButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 225), 
+                            textInput="RESTART", font=get_font(50), baseColor="white", hoveringColor="#999999")
     #quit button image loads, sets text display to 'quit' and the base colour to white
-    QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 450), 
-                            text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
+    quitButton = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 450), 
+                            textInput="QUIT", font=get_font(50), baseColor="white", hoveringColor="#999999")
   
-    SCREEN.blit(MENU_TEXT, MENU_RECT)
-    SCREEN.blit(PREV_SCORE_TEXT, (WIDTH - PREV_SCORE_TEXT.get_width() - 450, 550))
+    screen.blit(menuText, menuRect)
+    screen.blit(prevScoreText, (width - prevScoreText.get_width() - 450, 550))
   
     #when the button is hovered over and is clicked, screen is updated and redraws from pos 0, 0
-    for button in [QUIT_BUTTON]:
-        button.changeColor(MENU_MOUSE_POS)
-        button.update(SCREEN)
-    for button in [RESTART_BUTTON]:
-        button.changeColor(MENU_MOUSE_POS)
+    for button in [quitButton]:
+        button.changeColor(menuMousePos)
+        button.update(screen)
+    for button in [restartButton]:
+        button.changeColor(menuMousePos)
         button.update(screen)
     for event in pygame.event.get():
         #if the event type is quit, pygame stops and game exits
@@ -66,11 +66,13 @@ def gameover():
             sys.exit()
         #when mouse cursor is moved checks for input in restart and quit, restart = runs game again, quit = pygame stops and sys exit
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if RESTART_BUTTON.checkForInput(MENU_MOUSE_POS):
+            if restartButton.checkForInput(menuMousePos):
               run = True
               main = False
+              width = 1280
+              height = 720
               return run, main 
-            if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+            if quitButton.checkForInput(menuMousePos):
               pygame.quit()
               sys.exit()
   
@@ -85,25 +87,25 @@ score = 0
 #Main menu system 
 def menu(main, run):
   while main:
-    SCREEN.blit(BG, (0, 0))
-    SCREEN.blit(TV, (0, 0))
+    screen.blit(BG, (0, 0))
+    screen.blit(TV, (0, 0))
   
     #almost all of this stuff is explained before, use gameover function for ref
-    MENU_MOUSE_POS = pygame.mouse.get_pos()
+    menuMousePos = pygame.mouse.get_pos()
     #b68f40 line 43 end, if added remove 41 and 42
-    MENU_TEXT = get_font(80).render("SPACE INVADERS", True, "white")
-    MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
-    PREV_SCORE_TEXT = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
-    PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
-                            text_input="PLAY", font=get_font(50), base_color="white", hovering_color="#999999")
-    QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 400), 
-                            text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
+    menuText = get_font(80).render("ALIEN SHOOTOUT", True, "white")
+    menuRect = menuText.get_rect(center=(640, 100))
+    prevScoreText = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
+    playButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
+                            textInput="PLAY", font=get_font(50), baseColor="white", hoveringColor="#999999")
+    quitButton = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 400), 
+                            textInput="QUIT", font=get_font(50), baseColor="white", hoveringColor="#999999")
   
-    screen.blit(MENU_TEXT, MENU_RECT)
-    screen.blit(PREV_SCORE_TEXT, (width - PREV_SCORE_TEXT.get_width() - 450, 550))
+    screen.blit(menuText, menuRect)
+    screen.blit(prevScoreText, (width - prevScoreText.get_width() - 450, 550))
   
-    for button in [PLAY_BUTTON, QUIT_BUTTON]:
-        button.changeColor(MENU_MOUSE_POS)
+    for button in [playButton, quitButton]:
+        button.changeColor(menuMousePos)
         button.update(screen)
         
     for event in pygame.event.get():
@@ -111,11 +113,11 @@ def menu(main, run):
             pygame.quit()
             sys.exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+            if playButton.checkForInput(menuMousePos):
               run = True
               main = False
               return run, main 
-            if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+            if quitButton.checkForInput(menuMousePos):
                 pygame.quit()
                 sys.exit()
   
@@ -125,85 +127,85 @@ run = menu(main, run)[0]
 main = menu(main, run)[1]
 #Game run
 if run:
-  pygame.display.set_caption('Space Invaders')
+  pygame.display.set_caption('Alien Shootout')
   #OOP, AJ should explain this part as I am not too familiar with this topic
   class Game:
 
     def __init__(self):
       global main, run
       # Player setup
-      player_sprite = Player((screen_width / 2,screen_height),screen_width, 5)
-      self.player = pygame.sprite.GroupSingle(player_sprite)
+      playerSprite = Player((screenWidth / 2,screenHeight),screenWidth, 5)
+      self.player = pygame.sprite.GroupSingle(playerSprite)
   
   		# health and score setup
       self.lives = 1
-      self.live_surf = pygame.image.load('player.png').convert_alpha()
-      self.live_x_start_pos = screen_width - (self.live_surf.get_size()[0] * 2 + 20)
+      self.liveSurf = pygame.image.load('player.png').convert_alpha()
+      self.liveXStartPos = screenWidth - (self.liveSurf.get_size()[0] * 2 + 20)
       self.score = 0
       self.font = pygame.font.Font('Pixeled.ttf',20)
     
       # Obstacle setup
       self.shape = obstacle.shape
-      self.block_size = 6
+      self.blockSize = 6
       self.blocks = pygame.sprite.Group()
-      self.obstacle_amount = 4
-      self.obstacle_x_positions = [num * (screen_width / self.obstacle_amount) for num in range(self.obstacle_amount)]
-      self.create_multiple_obstacles(*self.obstacle_x_positions, x_start = screen_width / 15, y_start = 480)
+      self.obstacleAmount = 4
+      self.obstacleXPositions = [num * (screenWidth / self.obstacleAmount) for num in range(self.obstacleAmount)]
+      self.create_multiple_obstacles(*self.obstacleXPositions, xStart = screenWidth / 15, yStart = 480)
     
       # Alien setup
       self.aliens = pygame.sprite.Group()
-      self.alien_lasers = pygame.sprite.Group()
+      self.alienLasers = pygame.sprite.Group()
       self.alien_setup(rows = 6, cols = 8)
-      self.alien_direction = 1
+      self.alienDirection = 1
     
       # Extra setup
       self.extra = pygame.sprite.GroupSingle()
-      self.extra_spawn_time = randint(40,80)
+      self.extraSpawnTime = randint(40,80)
   
     #defines create obstacle with given parameters, checks for row_index and row, then iterates through to col_index and col
     #if col = x, sets x var to x_start + col index * block size + offset, likewise for y, just with row and without offset
     #block variable set to class obstacle.Block with args block_size, position, and x,y
     #adds block
-    def create_obstacle(self, x_start, y_start,offset_x):
-      for row_index, row in enumerate(self.shape):
-        for col_index,col in enumerate(row):
+    def create_obstacle(self, xStart, yStart,offsetX):
+      for rowIndex, row in enumerate(self.shape):
+        for colIndex,col in enumerate(row):
           if col == 'x':
-            x = x_start + col_index * self.block_size + offset_x
-            y = y_start + row_index * self.block_size
-            block = obstacle.Block(self.block_size,(241,79,80),x,y)
+            x = xStart + colIndex * self.blockSize + offsetX
+            y = yStart + rowIndex * self.blockSize
+            block = obstacle.Block(self.blockSize,(241,79,80),x,y)
             self.blocks.add(block)
   
     #creates multiple obstacles using create obstacle for every x offset in offset
-    def create_multiple_obstacles(self,*offset,x_start,y_start):
-      for offset_x in offset:
-        self.create_obstacle(x_start,y_start,offset_x)
+    def create_multiple_obstacles(self,*offset,xStart,yStart):
+      for offsetX in offset:
+        self.create_obstacle(xStart,yStart,offsetX)
   
     #creates aliens using x and y column and row indexes within the range of rows and columns
     #makes sure to not create aliens outside the given area
-    def alien_setup(self,rows,cols,x_distance = 60,y_distance = 48,x_offset = 70, y_offset = 100):
-      for row_index, row in enumerate(range(rows)):
-        for col_index, col in enumerate(range(cols)):
-          x = col_index * x_distance + x_offset
-          y = row_index * y_distance + y_offset
+    def alien_setup(self,rows,cols,xDistance = 60,yDistance = 48,xOffset = 70, yOffset = 100):
+      for rowIndex, row in enumerate(range(rows)):
+        for colIndex, col in enumerate(range(cols)):
+          x = colIndex * xDistance + xOffset
+          y = rowIndex * yDistance + yOffset
           
           #if row_index = 0, creates alien with the Alien class and yellow image, 1st row from top
-          if row_index == 0: alien_sprite = Alien('yellow',x,y)
+          if rowIndex == 0: alienSprite = Alien('yellow',x,y)
           #sets alien image to green on second row from top
-          elif 1 <= row_index <= 2: alien_sprite = Alien('green',x,y)
+          elif 1 <= rowIndex <= 2: alienSprite = Alien('green',x,y)
           #anything else is coloured with red alien image
-          else: alien_sprite = Alien('red',x,y)
+          else: alienSprite = Alien('red',x,y)
           #adds aliens
-          self.aliens.add(alien_sprite)
+          self.aliens.add(alienSprite)
   
     #if alien position hits the end of the screen, moves down aliens one row
     def alien_position_checker(self):
-      all_aliens = self.aliens.sprites()
-      for alien in all_aliens:
-        if alien.rect.right >= screen_width:
-          self.alien_direction = -1
+      allAliens = self.aliens.sprites()
+      for alien in allAliens:
+        if alien.rect.right >= screenWidth:
+          self.alienDirection = -1
           self.alien_move_down(2)
         elif alien.rect.left <= 0:
-          self.alien_direction = 1
+          self.alienDirection = 1
           self.alien_move_down(2)
   
     #moves down aliens by adding distance to alien.rect.y
@@ -215,16 +217,16 @@ if run:
     #alien shoots laser using Laser class and adds lasers to alien artillery
     def alien_shoot(self):
       if self.aliens.sprites():
-        random_alien = choice(self.aliens.sprites())
-        laser_sprite = Laser(random_alien.rect.center,6,screen_height)
-        self.alien_lasers.add(laser_sprite)
+        randomAlien = choice(self.aliens.sprites())
+        laserSprite = Laser(randomAlien.rect.center,6,screenHeight)
+        self.alienLasers.add(laserSprite)
         
     #not sure entirely what this function is for
     def extra_alien_timer(self):
-      self.extra_spawn_time -= 1
-      if self.extra_spawn_time <= 0:
+      self.extraSpawnTime -= 1
+      if self.extraSpawnTime <= 0:
         self.extra.add(Extra(choice(['right','left']),screen_width))
-        self.extra_spawn_time = randint(400,800)
+        self.extraSpawnTime = randint(400,800)
   
     #checks if user collides with laser, if so, removes laser from visuals
     def collision_checks(self):
@@ -254,8 +256,8 @@ if run:
       # alien lasers 
       #if alien lasers collide with obstacles, removes laser and 1 pixel of the obstacle
       #if laser collides with player, -1 from lives, if lives hits 0, gameover function runs
-      if self.alien_lasers:
-        for laser in self.alien_lasers:
+      if self.alienLasers:
+        for laser in self.alienLasers:
           # obstacle collisions
           if pygame.sprite.spritecollide(laser,self.blocks,True):
             laser.kill()
@@ -284,31 +286,31 @@ if run:
     #displays amount of lives left, shown bottom right of screen
     def display_lives(self):
       for live in range(self.lives - 1):
-        x = self.live_x_start_pos + (live * (self.live_surf.get_size()[0] + 10))
-        screen.blit(self.live_surf,(x,8))
+        x = self.liveXStartPos + (live * (self.liveSurf.get_size()[0] + 10))
+        screen.blit(self.liveSurf,(x,8))
   
     #displays score top left of screen
     def display_score(self):
       global score
-      score_surf = self.font.render(f'score: {score}',False,'white')
-      score_rect = score_surf.get_rect(topleft = (10,-10))
-      screen.blit(score_surf,score_rect)
+      scoreSurf = self.font.render(f'score: {score}',False,'white')
+      scoreRect = scoreSurf.get_rect(topleft = (10,-10))
+      screen.blit(scoreSurf,scoreRect)
   
     #if no more aliens are on screen, runs victory message and screen (bit buggy, doesn't run 100% of the time)
     def victory_message(self):
       if not self.aliens.sprites():
-        victory_surf = self.font.render('You won',False,'white')
-        victory_rect = victory_surf.get_rect(center = (screen_width / 2, screen_height / 2))
-        screen.blit(victory_surf,victory_rect)
+        victorySurf = self.font.render('You won',False,'white')
+        victoryRect = victorySurf.get_rect(center = (screenWidth / 2, screenHeight / 2))
+        screen.blit(victorySurf,victoryRect)
         menu(main, run)
   
     #runs main program, updates all functions and includes all necessary variables and functions to run
     def run(self):
       self.player.update()
-      self.alien_lasers.update()
+      self.alienLasers.update()
       self.extra.update()
       
-      self.aliens.update(self.alien_direction)
+      self.aliens.update(self.alienDirection)
       self.alien_position_checker()
       self.extra_alien_timer()
       self.collision_checks()
@@ -317,7 +319,7 @@ if run:
       self.player.draw(screen)
       self.blocks.draw(screen)
       self.aliens.draw(screen)
-      self.alien_lasers.draw(screen)
+      self.alienLasers.draw(screen)
       self.extra.draw(screen)
       self.display_lives()
       self.display_score()
@@ -328,15 +330,15 @@ if run:
     #initiation, load tv border image and scale tv background with desired width and height amount
     def __init__(self):
       self.tv = pygame.image.load('tv.png').convert_alpha()
-      self.tv = pygame.transform.scale(self.tv,(screen_width,screen_height))
+      self.tv = pygame.transform.scale(self.tv,(screenWidth,screenHeight))
   
     #creates lines for crt and draws line on display in black
     def create_crt_lines(self):
-      line_height = 3
-      line_amount = int(screen_height / line_height)
-      for line in range(line_amount):
-        y_pos = line * line_height
-        pygame.draw.line(self.tv,'black',(0,y_pos),(screen_width,y_pos),1)
+      lineHeight = 3
+      lineAmount = int(screenHeight / lineHeight)
+      for line in range(lineAmount):
+        yPos = line * lineHeight
+        pygame.draw.line(self.tv,'black',(0,yPos),(screenWidth,yPos),1)
   
     #makes tv background slightly transparent, giving retro feel
     def draw(self):
@@ -346,22 +348,22 @@ if run:
   
   if __name__ == '__main__':
     pygame.init()
-    screen_width = 600
-    screen_height = 600
-    screen = pygame.display.set_mode((screen_width,screen_height))
+    screenWidth = 600
+    screenHeight = 600
+    screen = pygame.display.set_mode((screenWidth,screenHeight))
     clock = pygame.time.Clock()
     game = Game()
     crt = CRT()
   
-    ALIENLASER = pygame.USEREVENT + 1
-    pygame.time.set_timer(ALIENLASER,800)
+    alienLaser = pygame.USEREVENT + 1
+    pygame.time.set_timer(alienLaser,800)
   
     while True:
       for event in pygame.event.get():
         if event.type == pygame.QUIT:
           pygame.quit()
           sys.exit()
-        if event.type == ALIENLASER:
+        if event.type == alienLaser:
           game.alien_shoot()
         
         if event.type == pygame.KEYDOWN:
