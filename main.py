@@ -98,7 +98,7 @@ def menu(main, run):
     #almost all of this stuff is explained before, use gameover function for ref
     MENU_MOUSE_POS = pygame.mouse.get_pos()
     #b68f40 line 43 end, if added remove 41 and 42
-    MENU_TEXT = get_font(80).render("SPACE INVADERS", True, "white")
+    MENU_TEXT = get_font(80).render("ALIEN SHOOTOUT", True, "white")
     MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
     PREV_SCORE_TEXT = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
     PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
