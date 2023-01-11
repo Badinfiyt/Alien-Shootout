@@ -28,7 +28,7 @@ def gameover():
   #global variable to make sure everything is included correctly, take OOP approach instead?
   global main, run, score
   #not working
-  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width), height))
+  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width), height)
   pygame.display.set_mode((1280, 720))
   
   while True:
@@ -225,7 +225,7 @@ if run:
     def extra_alien_timer(self):
       self.extraSpawnTime -= 1
       if self.extraSpawnTime <= 0:
-        self.extra.add(Extra(choice(['right','left']),screen_width))
+        self.extra.add(Extra(choice(['right','left']),screenWidth))
         self.extraSpawnTime = randint(400,800)
   
     #checks if user collides with laser, if so, removes laser from visuals
