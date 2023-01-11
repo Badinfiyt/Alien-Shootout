@@ -10,13 +10,11 @@ import random
 #Initiatizes pygame
 pygame.init()
 
-#sets width and height of the display and sets the display name to 'menu'
 WIDTH = 1280
 HEIGHT = 720
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Menu")
 
-#sets images for background and tv border visual
 BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (WIDTH,HEIGHT))
 TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (WIDTH, HEIGHT))
 
@@ -29,13 +27,11 @@ def gameover():
   pygame.display.set_caption('Game Over')
   #global variable to make sure everything is included correctly, take OOP approach instead?
   global main, run, score
-  #sets game over background to image downloaded
+  #not working
   GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (WIDTH, HEIGHT))
-  #rescales the pygame display to new resolution
   pygame.display.set_mode((1280, 720))
   
   while True:
-    #redraws the screen starting from position 0, 0
     SCREEN.blit(GM, (0, 0))
   
     #retracts cursor position using .get_pos()
@@ -53,7 +49,6 @@ def gameover():
     QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 450), 
                             text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
   
-    #redraws the display using menu_text and menu_rect, redraws score and sets the width to position 450, 550
     SCREEN.blit(MENU_TEXT, MENU_RECT)
     SCREEN.blit(PREV_SCORE_TEXT, (WIDTH - PREV_SCORE_TEXT.get_width() - 450, 550))
   
@@ -61,10 +56,9 @@ def gameover():
     for button in [QUIT_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)
         button.update(SCREEN)
-    #same function from quit_button just for restart button
     for button in [RESTART_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)
-        button.update(SCREEN)
+        button.update(screen)
     for event in pygame.event.get():
         #if the event type is quit, pygame stops and game exits
         if event.type == pygame.QUIT:
@@ -91,14 +85,13 @@ score = 0
 #Main menu system 
 def menu(main, run):
   while main:
-    #redraws screen with bg, tv at given positions
     SCREEN.blit(BG, (0, 0))
     SCREEN.blit(TV, (0, 0))
   
     #almost all of this stuff is explained before, use gameover function for ref
     MENU_MOUSE_POS = pygame.mouse.get_pos()
     #b68f40 line 43 end, if added remove 41 and 42
-    MENU_TEXT = get_font(80).render("ALIEN SHOOTOUT", True, "white")
+    MENU_TEXT = get_font(80).render("SPACE INVADERS", True, "white")
     MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
     PREV_SCORE_TEXT = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
     PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
@@ -106,12 +99,12 @@ def menu(main, run):
     QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 400), 
                             text_input="QUIT", font=get_font(50), base_color="white", hovering_color="#999999")
   
-    SCREEN.blit(MENU_TEXT, MENU_RECT)
-    SCREEN.blit(PREV_SCORE_TEXT, (WIDTH - PREV_SCORE_TEXT.get_width() - 450, 550))
+    screen.blit(MENU_TEXT, MENU_RECT)
+    screen.blit(PREV_SCORE_TEXT, (width - PREV_SCORE_TEXT.get_width() - 450, 550))
   
     for button in [PLAY_BUTTON, QUIT_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)
-        button.update(SCREEN)
+        button.update(screen)
         
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -128,7 +121,6 @@ def menu(main, run):
   
     pygame.display.update()
 
-#sets run to main and main to run
 run = menu(main, run)[0]
 main = menu(main, run)[1]
 #Game run
