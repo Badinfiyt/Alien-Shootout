@@ -66,16 +66,10 @@ def gameover():
             sys.exit()
         #when mouse cursor is moved checks for input in restart and quit, restart = runs game again, quit = pygame stops and sys exit
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if restartButton.checkForInput(menuMousePos):
-              screen.fill((30,30,30))  
-              game.run()
-              crt.draw() 
-              pygame.display.flip()
-              clock.tick(60)
-              
-              #run = True
-              #main = False
-              #return run, main
+            if restartButton.checkForInput(menuMousePos): 
+              run = True
+              main = False
+              return run, main
             if quitButton.checkForInput(menuMousePos):
               pygame.quit()
               sys.exit()
@@ -141,8 +135,8 @@ if run:
       playerSprite = Player((screenWidth / 2,screenHeight),screenWidth, 5)
       self.player = pygame.sprite.GroupSingle(playerSprite)
   
-  		# health and score setup
-      self.lives = 3
+  		# health and score setup, change when submitting
+      self.lives = 1
       self.liveSurf = pygame.image.load('player.png').convert_alpha()
       self.liveXStartPos = screenWidth - (self.liveSurf.get_size()[0] * 2 + 20)
       self.score = 0
