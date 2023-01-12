@@ -22,7 +22,7 @@ TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (width,
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
 
-def gameover():
+def gameover(menu):
   #sets caption to 'game over' 
   pygame.display.set_caption('Game Over')
   #global variable to make sure everything is included correctly, take OOP approach instead?
@@ -32,8 +32,6 @@ def gameover():
   pygame.display.set_mode((1280, 720))
   
   while True:
-    screen.blit(GM, (0, 0))
-  
     #retracts cursor position using .get_pos()
     menuMousePos = pygame.mouse.get_pos()
     #game over menu title set to 'try again'
@@ -45,13 +43,15 @@ def gameover():
     #restart button function, using play rect from previous game, still in development***
     restartButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 225), 
                             textInput="RESTART", font=get_font(50), baseColor="white", hoveringColor="#999999")
+    playButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
+                            textInput="PLAY", font=get_font(50), baseColor="white", hoveringColor="#999999")
     #quit button image loads, sets text display to 'quit' and the base colour to white
     quitButton = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 450), 
                             textInput="QUIT", font=get_font(50), baseColor="white", hoveringColor="#999999")
-  
+
     screen.blit(menuText, menuRect)
     screen.blit(prevScoreText, (width - prevScoreText.get_width() - 450, 550))
-  
+
     #when the button is hovered over and is clicked, screen is updated and redraws from pos 0, 0
     for button in [quitButton]:
         button.changeColor(menuMousePos)
@@ -67,13 +67,15 @@ def gameover():
         #when mouse cursor is moved checks for input in restart and quit, restart = runs game again, quit = pygame stops and sys exit
         if event.type == pygame.MOUSEBUTTONDOWN:
             if restartButton.checkForInput(menuMousePos): 
-              run = True
-              main = False
-              return run, main
+              menu(run, main)
+              if playButton.checkForInput(menuMousePos):
+                run = True
+                main = False
+                return run, main
             if quitButton.checkForInput(menuMousePos):
               pygame.quit()
               sys.exit()
-  
+
     #updates display
     pygame.display.update()
     
@@ -264,7 +266,7 @@ if run:
             laser.kill()
             self.lives -= 1
             if self.lives <= 0:
-              gameover()
+              gameover(menu)
               #pygame.quit()
               #sys.exit()
               
