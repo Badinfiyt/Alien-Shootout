@@ -17,6 +17,9 @@ pygame.display.set_caption("Menu")
 
 BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (width,height))
 TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (width, height))
+main = True
+run = False
+score = 0
 
 #acquires font file from assets subfolder
 def get_font(size): # Returns Press-Start-2P in the desired size
@@ -80,9 +83,7 @@ def gameover(menu):
     pygame.display.update()
     
 #default variables
-main = True
-run = False
-score = 0
+
 
 #Main menu system 
 def menu(main, run):
