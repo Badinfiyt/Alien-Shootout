@@ -28,9 +28,6 @@ def get_font(size): # Returns Press-Start-2P in the desired size
 def gameover(menu, main, run, score):
   #sets caption to 'game over' 
   pygame.display.set_caption('Game Over')
-  #global variable to make sure everything is included correctly, take OOP approach instead?
-  #global main, run, score
-  #not working
   GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, height))
   pygame.display.set_mode((1280, 720))
   
@@ -134,7 +131,6 @@ if run:
   class Game:
 
     def __init__(self, main, run):
-      #global main, run
       # Player setup
       playerSprite = Player((screenWidth / 2,screenHeight),screenWidth, 5)
       self.player = pygame.sprite.GroupSingle(playerSprite)
@@ -231,8 +227,7 @@ if run:
         self.extraSpawnTime = randint(400,800)
   
     #checks if user collides with laser, if so, removes laser from visuals
-    def collision_checks(self):
-      global score
+    def collision_checks(self, score):
       # player lasers 
       if self.player.sprite.lasers:
         for laser in self.player.sprite.lasers:
@@ -293,7 +288,6 @@ if run:
   
     #displays score top left of screen
     def display_score(self, score):
-      #global score
       scoreSurf = self.font.render(f'score: {score}',False,'white')
       scoreRect = scoreSurf.get_rect(topleft = (10,-10))
       screen.blit(scoreSurf,scoreRect)
@@ -315,7 +309,7 @@ if run:
       self.aliens.update(self.alienDirection)
       self.alien_position_checker()
       self.extra_alien_timer()
-      self.collision_checks()
+      self.collision_checks(score)
       
       self.player.sprite.lasers.draw(screen)
       self.player.draw(screen)
