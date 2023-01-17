@@ -25,11 +25,11 @@ score = 0
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
 
-def gameover(menu):
+def gameover(menu, main, run, score):
   #sets caption to 'game over' 
   pygame.display.set_caption('Game Over')
   #global variable to make sure everything is included correctly, take OOP approach instead?
-  global main, run, score
+  #global main, run, score
   #not working
   GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, height))
   pygame.display.set_mode((1280, 720))
@@ -54,6 +54,7 @@ def gameover(menu):
 
     screen.blit(menuText, menuRect)
     screen.blit(prevScoreText, (width - prevScoreText.get_width() - 450, 550))
+    score = score
 
     #when the button is hovered over and is clicked, screen is updated and redraws from pos 0, 0
     for button in [quitButton]:
@@ -132,8 +133,8 @@ if run:
   #OOP, AJ should explain this part as I am not too familiar with this topic
   class Game:
 
-    def __init__(self):
-      global main, run
+    def __init__(self, main, run):
+      #global main, run
       # Player setup
       playerSprite = Player((screenWidth / 2,screenHeight),screenWidth, 5)
       self.player = pygame.sprite.GroupSingle(playerSprite)
@@ -267,7 +268,7 @@ if run:
             laser.kill()
             self.lives -= 1
             if self.lives <= 0:
-              gameover(menu)
+              gameover(menu, main, run, score)
               #pygame.quit()
               #sys.exit()
               
@@ -291,8 +292,8 @@ if run:
         screen.blit(self.liveSurf,(x,8))
   
     #displays score top left of screen
-    def display_score(self):
-      global score
+    def display_score(self, score):
+      #global score
       scoreSurf = self.font.render(f'score: {score}',False,'white')
       scoreRect = scoreSurf.get_rect(topleft = (10,-10))
       screen.blit(scoreSurf,scoreRect)
@@ -323,7 +324,7 @@ if run:
       self.alienLasers.draw(screen)
       self.extra.draw(screen)
       self.display_lives()
-      self.display_score()
+      self.display_score(score)
       self.victory_message()
   
   #runtime class
@@ -353,7 +354,7 @@ if run:
     screenHeight = 600
     screen = pygame.display.set_mode((screenWidth,screenHeight))
     clock = pygame.time.Clock()
-    game = Game()
+    game = Game(main, run)
     crt = CRT()
   
     alienLaser = pygame.USEREVENT + 1
