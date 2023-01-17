@@ -45,7 +45,7 @@ def gameover(menu, main, run, score):
     prevScoreText = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
     #restart button function, using play rect from previous game, still in development***
     restartButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 225), 
-                            textInput="RESTART", font=get_font(50), baseColor="white", hoveringColor="#999999")
+                            textInput="BACK TO MAIN MENU", font=get_font(50), baseColor="white", hoveringColor="#999999")
     playButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
                             textInput="PLAY", font=get_font(50), baseColor="white", hoveringColor="#999999")
     #quit button image loads, sets text display to 'quit' and the base colour to white
