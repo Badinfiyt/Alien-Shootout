@@ -17,18 +17,33 @@ height = 720
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Menu")
 
-#sets the background for the main menue screen
+#sets the background for the main menu screen
 background = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (width,height))
 tvEffect = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (width, height))
+
+#default values
 main = True
 run = False
 score = 0
 
-#acquires font file from assets subfolder
+
 def get_font(size): # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("assets/font.ttf", size)
+  """
+  Summary: acquires font file from assets subfolder
+  Argument:
+    size: 
+  """
+  return pygame.font.Font("assets/font.ttf", size)
 
 def gameover(menu, main, run, score):
+  """
+  Summary: initialises the game over screen. It also prints the main menu and 
+  Argument:
+    menu: if the value of this is True, the program will be in its running state, as soon as this value is False, the game quits <class 'bool'>
+    main: if the value of this is True, main menu will be shown to the user and will not be shown if it is False <class 'bool'>
+    run: if the value of this is True, the game window will be running and the main menu screen or the game over screen will be shown if the value is False <class 'bool'>
+    score: stores the default variable of the player's score <class 'int'>
+  """
   #sets caption to 'game over' 
   pygame.display.set_caption('Game Over')
   GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, height))
@@ -82,8 +97,6 @@ def gameover(menu, main, run, score):
 
     #updates display
     pygame.display.update()
-    
-#default variables
 
 
 #Main menu system 
