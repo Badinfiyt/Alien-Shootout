@@ -7,16 +7,19 @@ from random import choice, randint
 from laser import Laser
 from button import Button
 import random
+
 #Initiatizes pygame
 pygame.init()
 
+#sets the screen size
 width = 1280
 height = 720
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Menu")
 
-BG = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (width,height))
-TV = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (width, height))
+#sets the background for the main menue screen
+background = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (width,height))
+tvEffect = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (width, height))
 main = True
 run = False
 score = 0
@@ -86,8 +89,8 @@ def gameover(menu, main, run, score):
 #Main menu system 
 def menu(main, run):
   while main:
-    screen.blit(BG, (0, 0))
-    screen.blit(TV, (0, 0))
+    screen.blit(background, (0, 0))
+    screen.blit(tvEffect, (0, 0))
   
     #almost all of this stuff is explained before, use gameover function for ref
     menuMousePos = pygame.mouse.get_pos()
