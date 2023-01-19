@@ -11,7 +11,6 @@ import random
 #Initiatizes pygame
 pygame.init()
 
-
 #sets the screen size
 width = 1280
 height = 720
