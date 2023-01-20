@@ -12,8 +12,8 @@ import random
 pygame.init()
 
 #sets the screen size
-width = 1280
-height = 720
+width = 600
+height = 600
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Menu")
 
@@ -51,24 +51,24 @@ def gameover(menu, main, run, score):
   #sets caption to 'game over' 
   pygame.display.set_caption('Game Over')
   GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, height))
-  pygame.display.set_mode((1280, 720))
+  pygame.display.set_mode((600, 600))
   
   while True:
     #retracts cursor position using .get_pos()
     menuMousePos = pygame.mouse.get_pos()
     #game over menu title set to 'try again'
-    menuText = get_font(80).render("TRY AGAIN", True, "white")
+    menuText = get_font(40).render("TRY AGAIN", True, "white")
     #declares rect value and draws a rectangle starting from center position(640, 100)
-    menuRect = menuText.get_rect(center=(640, 100))
+    menuRect = menuText.get_rect(center=(310, 100))
     #shows score from previous game (stored in "score")
-    prevScoreText = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
+    prevScoreText = get_font(15).render(f"SCORE: {score}", True, "white")
     #restart button function, using play rect from previous game, still in development***
-    restartButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 225), 
-                            textInput="MAIN MENU", font=get_font(40), baseColor="white", hoveringColor="#999999")
-    playButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
+    restartButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(310, 225), 
+                            textInput="Return to main menu and get another chance", font=get_font(10), baseColor="white", hoveringColor="#999999")
+    playButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(310, 250), 
                             textInput="PLAY", font=get_font(50), baseColor="white", hoveringColor="#999999")
     #quit button image loads, sets text display to 'quit' and the base colour to white
-    quitButton = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 450), 
+    quitButton = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(310, 450), 
                             textInput="QUIT", font=get_font(50), baseColor="white", hoveringColor="#999999")
 
     screen.blit(menuText, menuRect)
@@ -117,12 +117,12 @@ def menu(main, run):
   
     #customises the main menu with font, a clickable button and a hovering color
     menuMousePos = pygame.mouse.get_pos()
-    menuText = get_font(80).render("ALIEN SHOOTOUT", True, "white")
-    menuRect = menuText.get_rect(center=(640, 100))
-    prevScoreText = get_font(50).render(f"SCORE: {score}", True, (255, 255, 255))
-    playButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250), 
+    menuText = get_font(40).render("ALIEN SHOOTOUT", True, "white")
+    menuRect = menuText.get_rect(center=(310, 100))
+    prevScoreText = get_font(15).render(f"SCORE: {score}", True, (255, 255, 255))
+    playButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(310, 250), 
                             textInput="PLAY", font=get_font(50), baseColor="white", hoveringColor="#999999")
-    quitButton = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 400), 
+    quitButton = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(310, 400), 
                             textInput="QUIT", font=get_font(50), baseColor="white", hoveringColor="#999999")
   
     screen.blit(menuText, menuRect)
