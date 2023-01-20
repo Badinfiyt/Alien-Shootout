@@ -223,7 +223,7 @@ if run == True:
       self.player = pygame.sprite.GroupSingle(playerSprite)
   
   		# health and score setup
-      self.lives = 1
+      self.lives = 3
       self.liveSurf = pygame.image.load('player.png').convert_alpha()
       self.liveXStartPos = screenWidth - (self.liveSurf.get_size()[0] * 2 + 20)
       self.score = 0
