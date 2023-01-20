@@ -26,12 +26,10 @@ tvEffect = pygame.transform.scale(pygame.image.load(
 
 # default values
 main = True
-menu = True
 run = False
 score = 0
 
 # Returns Press-Start-2P in the desired size
-
 
 def get_font(size):
     """
@@ -42,7 +40,6 @@ def get_font(size):
       type: this functioon returns the font in the desired size
     """
     return pygame.font.Font("assets/font.ttf", size)
-
 
 def gameover(menu, main, run, score):
     """
@@ -101,7 +98,11 @@ def gameover(menu, main, run, score):
             # when mouse cursor is moved checks for input in restart and quit, restart = runs game again, quit = pygame stops and sys exit
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if restartButton.checkForInput(menuMousePos):
-                    menu(menu, run)
+                    menu(run, main)
+                    if playButton.checkForInput(menuMousePos):
+                        run = True
+                        main = False
+                        return run, main
                 if quitButton.checkForInput(menuMousePos):
                     pygame.quit()
                     sys.exit()
@@ -109,8 +110,7 @@ def gameover(menu, main, run, score):
         # updates display
         pygame.display.update()
 
-
-def menu(menu, run):
+def menu(main, run):
     """
     Summary: initialises the main menu screen. Also initializes the buttons, play and quit
     Argument:
@@ -151,14 +151,13 @@ def menu(menu, run):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if playButton.checkForInput(menuMousePos):
                     run = True
-                    menu = False
-                    return run, menu
+                    main = False
+                    return run, main
                 if quitButton.checkForInput(menuMousePos):
                     pygame.quit()
                     sys.exit()
 
         pygame.display.update()
-
 
 class Game:
 
@@ -431,7 +430,6 @@ class Game:
         self.display_score(score)
         self.victory_message()
 
-
 class CRT:
     def __init__(self):
         """
@@ -463,13 +461,15 @@ class CRT:
         screen.blit(self.tv, (0, 0))
 
 
-while main:
-    if menu:
-        menu(menu, run)
-        #run = returnValues[0]
-        #menu = returnValues[1]
-    if run:
-        pygame.display.set_caption('Alien Shootout')
+returnValues = menu(main, run)
+run = returnValues[0]
+main = returnValues[1]
+
+
+# Game run
+if run:
+    pygame.display.set_caption('Alien Shootout')
+    if __name__ == '__main__':
         pygame.init()
         screenWidth = 600
         screenHeight = 600
