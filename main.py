@@ -1,3 +1,32 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Author: AJ Attarde and Santi Motoc                    "
+" Date: 20th January 2023                               "
+" Name of Program: Alien Shootout                       "
+" Purpose: Generates an alien shootout game             "  
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+#<class 'int'> 
+#<class 'str'> 
+#<class 'bool'>
+#<class 'pygame.Surface'>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  Variable Dictionary                                  "
+" width - sets the width of the pygame window           "
+"   <class 'int'>                                       "
+" height - sets the height of the pygame window         "
+"   <class 'int'>                                       "
+" screen - sets the pygame window to the height         "
+"   in the previous variables <class 'pygame.Surface'>  "
+" background - sets the background for main menu screen "
+"   <class 'pygame.Surface'>                            "
+" tvEffect - sets the black effect on the edge of the   "
+"   main menu screen <class 'pygame.Surface'>           "
+" main - initializes the main menu screen <class 'bool'>"
+" run - initializes the game screen <class 'bool'>      "
+" score - score the user achieves <class 'int'>         "
+" 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 #imports all necessary modules
 import pygame, sys
 from player import Player
@@ -33,9 +62,10 @@ def get_font(size):
   Argument:
     size: this is the size of the font
   returns:
-    type: this functioon returns the font in the desired size
+    font: this function returns the font in the desired size
   """
-  return pygame.font.Font("assets/font.ttf", size)
+  font = pygame.font.Font("assets/font.ttf", size)
+  return font
 def gameover(menu, main, run, score):
   """
   Summary: initialises the game over screen. It also prints the main menu and 
@@ -50,7 +80,7 @@ def gameover(menu, main, run, score):
   """
   #sets caption to 'game over' 
   pygame.display.set_caption('Game Over')
-  GM = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, height))
+  gameOver = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, height))
   pygame.display.set_mode((600, 600))
   
   while True:
