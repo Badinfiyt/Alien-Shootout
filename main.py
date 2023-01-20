@@ -233,7 +233,7 @@ if run:
       self.shape = obstacle.shape
       self.blockSize = 6
       self.blocks = pygame.sprite.Group()
-      self.obstacleAmount = 4
+      self.obstacleAmount = 3
       self.obstacleXPositions = [num * (screenWidth / self.obstacleAmount) for num in range(self.obstacleAmount)]
       self.create_multiple_obstacles(*self.obstacleXPositions, xStart = screenWidth / 15, yStart = 480)
     
