@@ -73,6 +73,7 @@ pygame.display.set_caption("Menu")
 background = pygame.transform.scale(pygame.image.load("assets/Background.png").convert_alpha(), (width,height))
 tvEffect = pygame.transform.scale(pygame.image.load('tv.png').convert_alpha(), (width, height))
 
+global score
 #default values
 main = True
 run = False
@@ -89,7 +90,7 @@ def get_font(size):
   """
   font = pygame.font.Font("assets/font.ttf", size)
   return font
-def gameover(menu, main, run, score):
+def gameover(menu, main, run):
   """
   Summary: initialises the game over screen. It also prints the main menu and 
   Argument:
@@ -101,7 +102,7 @@ def gameover(menu, main, run, score):
     run: returns the value as True if the user wants to play the game <class 'bool'>
     main: returns the value as False so the main menu isn't shown to the user while they are playing the game <class 'bool'> 
   """
-  
+  global score
   while True:
     #retracts cursor position using .get_pos()
     menuMousePos = pygame.mouse.get_pos()
@@ -176,7 +177,6 @@ def menu(main, run):
   
     screen.blit(menuText, menuRect)
     screen.blit(prevScoreText, (width - prevScoreText.get_width() - 450, 550))
-  
   
     #changes colors of the button when hovered over it
     for button in [playButton, quitButton]:
@@ -360,7 +360,8 @@ if run:
         self.extraSpawnTime = randint(400,800)
   
     
-    def collision_checks(self, score):
+    def collision_checks(self):
+      global score
       """
       Summary: checks if user collides with laser, if so, removes laser from visuals
       Argument:
@@ -388,6 +389,8 @@ if run:
           if pygame.sprite.spritecollide(laser,self.extra,True):
             score += 500
             laser.kill()
+          
+          
   
       # alien lasers 
       #if alien lasers collide with obstacles, removes laser and 1 pixel of the obstacle
@@ -402,7 +405,7 @@ if run:
             laser.kill()
             self.lives -= 1
             if self.lives <= 0:
-              gameover(menu, main, run, score)
+              gameover(menu, main, run)
               
   
       # aliens
@@ -417,7 +420,7 @@ if run:
             #pygame.quit()
             #sys.exit()
 
-    
+ 
     def display_lives(self):
       """
       Summary: displays amount of lives left, shown bottom right of screen 
@@ -429,7 +432,8 @@ if run:
         screen.blit(self.liveSurf,(x,8))
   
 
-    def display_score(self, score):
+    def display_score(self):
+      global score
       """
       Summary: displays score in top left of screen
       Argument:
@@ -467,7 +471,7 @@ if run:
       self.aliens.update(self.alienDirection)
       self.alien_position_checker()
       self.extra_alien_timer()
-      self.collision_checks(score)
+      self.collision_checks()
       
       self.player.sprite.lasers.draw(screen)
       self.player.draw(screen)
@@ -476,7 +480,7 @@ if run:
       self.alienLasers.draw(screen)
       self.extra.draw(screen)
       self.display_lives()
-      self.display_score(score)
+      self.display_score()
       self.victory_message()
   
   #runtime class
