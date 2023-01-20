@@ -62,7 +62,7 @@ def gameover(menu, main, run, score):
         "assets/game_over.png").convert_alpha(), (width, height))
     pygame.display.set_mode((1280, 720))
 
-    while True:
+    while main:
         # retracts cursor position using .get_pos()
         menuMousePos = pygame.mouse.get_pos()
         # game over menu title set to 'try again'
@@ -101,7 +101,8 @@ def gameover(menu, main, run, score):
             # when mouse cursor is moved checks for input in restart and quit, restart = runs game again, quit = pygame stops and sys exit
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if restartButton.checkForInput(menuMousePos):
-                    menu(menu, run)
+                    returnValues = menu(menu, run)
+                    return returnValues
                 if quitButton.checkForInput(menuMousePos):
                     pygame.quit()
                     sys.exit()
@@ -355,7 +356,9 @@ class Game:
                     laser.kill()
                     self.lives -= 1
                     if self.lives <= 0:
-                        gameover(menu, main, run, score)
+                        returnValues = gameover(menu, main, run, score)
+                        run = returnValues[0]
+                        menu = returnValues[1]
                         # pygame.quit()
                         # sys.exit()
 
@@ -465,9 +468,9 @@ class CRT:
 
 while main:
     if menu:
-        menu(menu, run)
-        #run = returnValues[0]
-        #menu = returnValues[1]
+        returnValues = menu(menu, run)
+        run = returnValues[0]
+        menu = returnValues[1]
     if run:
         pygame.display.set_caption('Alien Shootout')
         pygame.init()
