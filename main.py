@@ -58,7 +58,7 @@ def gameover(menu, main, run, score):
     menuMousePos = pygame.mouse.get_pos()
     #game over menu title set to 'try again'
     menuText = get_font(40).render("TRY AGAIN", True, "white")
-    #declares rect value and draws a rectangle starting from center position(640, 100)
+    #declares rect value and draws a rectangle starting from center position(310, 100)
     menuRect = menuText.get_rect(center=(310, 100))
     #shows score from previous game (stored in "score")
     prevScoreText = get_font(15).render(f"SCORE: {score}", True, "white")
