@@ -402,8 +402,6 @@ if run:
             self.lives -= 1
             if self.lives <= 0:
               gameover(menu, main, run, score)
-              #pygame.quit()
-              #sys.exit()
               
   
       # aliens
