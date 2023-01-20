@@ -23,7 +23,25 @@
 " main - initializes the main menu screen <class 'bool'>"
 " run - initializes the game screen <class 'bool'>      "
 " score - score the user achieves <class 'int'>         "
-" 
+" font - retrieves font and sets the size               "
+"   <class 'pygame.Surface'>                            "
+" menuMousePos - gets the mouse position                "
+"   <class 'pygame.Surface'>                            "
+" menuText - prints the try again title on the gameover "
+"   screen <class 'pygame.Surface'>                     "
+" menuRect - draws the rectange around the text on the  "
+"   gameover screen <class 'pygame.Surface'>            "
+" prevScoreText - prints the score scored               "
+"   <class 'pygame.Surface'>                            "
+" restartButton - prints the restart button on the      "
+"   gameover screen <class 'pygame.Surface'>            "
+" playButton - reinitializes the game once the button to"
+"   get another chance is pressed                       "
+"   <class 'pygame.Surface'>                            "
+" quitButton - quits the game once the quit button is   "
+"   pressed <class 'pygame.Surface'>                    "
+" returnValues - gets the return value from the menu    "
+"   function <class 'tuple'>                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -78,10 +96,6 @@ def gameover(menu, main, run, score):
     run: returns the value as True if the user wants to play the game <class 'bool'>
     main: returns the value as False so the main menu isn't shown to the user while they are playing the game <class 'bool'> 
   """
-  #sets caption to 'game over' 
-  pygame.display.set_caption('Game Over')
-  gameOver = pygame.transform.scale(pygame.image.load("assets/game_over.png").convert_alpha(), (width, height))
-  pygame.display.set_mode((600, 600))
   
   while True:
     #retracts cursor position using .get_pos()
@@ -92,7 +106,7 @@ def gameover(menu, main, run, score):
     menuRect = menuText.get_rect(center=(310, 100))
     #shows score from previous game (stored in "score")
     prevScoreText = get_font(15).render(f"SCORE: {score}", True, "white")
-    #restart button function, using play rect from previous game, still in development***
+    #restart button function, using play rect from previous game
     restartButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(310, 225), 
                             textInput="Return to main menu and get another chance", font=get_font(10), baseColor="white", hoveringColor="#999999")
     playButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(310, 250), 
