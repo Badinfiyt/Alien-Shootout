@@ -177,6 +177,7 @@ def menu(main, run):
     screen.blit(menuText, menuRect)
     screen.blit(prevScoreText, (width - prevScoreText.get_width() - 450, 550))
   
+  
     #changes colors of the button when hovered over it
     for button in [playButton, quitButton]:
         button.changeColor(menuMousePos)
