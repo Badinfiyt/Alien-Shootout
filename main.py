@@ -205,7 +205,7 @@ main = returnValues[1]
 
 
 #Game run
-if run == True:
+if run:
   pygame.display.set_caption('Alien Shootout')
   class Game:
 
