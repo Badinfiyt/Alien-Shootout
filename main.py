@@ -4,10 +4,6 @@
 " Name of Program: Alien Shootout                       "
 " Purpose: Generates an alien shootout game             "  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-#<class 'int'> 
-#<class 'str'> 
-#<class 'bool'>
-#<class 'pygame.Surface'>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  Variable Dictionary                                  "
 " width - sets the width of the pygame window           "
@@ -50,7 +46,8 @@
 "    <class 'obstacle.Block'>                           "
 " allAliens - used to move all the aliens down a row    "
 "   <class 'alien.Alien'>                               "
-" 
+" aliensHit - checks if the alien is hit by bullets     "
+"   <class 'list'>                                      "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 #imports all necessary modules
@@ -116,7 +113,7 @@ def gameover(menu, main, run, score):
     prevScoreText = get_font(15).render(f"SCORE: {score}", True, "white")
     #restart button function, using play rect from previous game
     restartButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(310, 225), 
-                            textInput="Return to main menu and get another chance", font=get_font(10), baseColor="white", hoveringColor="#999999")
+                            textInput="Return to main menu for another chance", font=get_font(10), baseColor="white", hoveringColor="#999999")
     playButton = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(310, 250), 
                             textInput="PLAY", font=get_font(50), baseColor="white", hoveringColor="#999999")
     #quit button image loads, sets text display to 'quit' and the base colour to white
@@ -379,9 +376,9 @@ if run:
   
           # alien collisions
           #if player laser hits alien, removes laser and adds score of alien value to score var
-          aliens_hit = pygame.sprite.spritecollide(laser,self.aliens,True)
-          if aliens_hit:
-            for alien in aliens_hit:
+          aliensHit = pygame.sprite.spritecollide(laser,self.aliens,True)
+          if aliensHit:
+            for alien in aliensHit:
               score += alien.value
             laser.kill()
   
@@ -435,7 +432,7 @@ if run:
 
     def display_score(self, score):
       """
-      Summary: displays score top left of screen
+      Summary: displays score in top left of screen
       Argument:
         self: Self is provided as a First parameter to the Instance method and constructor 
         score: this is the score that the user has gotten by destroying alien spaceships <class 'int'>
