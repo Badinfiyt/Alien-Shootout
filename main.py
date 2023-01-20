@@ -42,8 +42,16 @@
 "   pressed <class 'pygame.Surface'>                    "
 " returnValues - gets the return value from the menu    "
 "   function <class 'tuple'>                            "
+" playerSprite - sets the position of the player sprite "
+"   <class 'player.Player'>                             "
+" xCoord - x coordinate <class 'float'>                 "
+" yCoord - y coordinate <class 'float'>                 "
+" block - creates the block using the coordinates       "
+"    <class 'obstacle.Block'>                           "
+" allAliens - used to move all the aliens down a row    "
+"   <class 'alien.Alien'>                               "
+" 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 
 #imports all necessary modules
 import pygame, sys
@@ -208,11 +216,12 @@ if run:
       """
       Summary: initialises the game screen. Assigns the player health and score. It also setups obstacles and aliens
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
         main: if the value of this is True, the program will be in its running state, as soon as this value is False, the game quits <class 'bool'>
         run: if the value of this is True, the game window will be running and the main menu screen or the game over screen will be shown if the value is False <class 'bool'>
       """
       # Player setup
+      
       playerSprite = Player((screenWidth / 2,screenHeight),screenWidth, 5)
       self.player = pygame.sprite.GroupSingle(playerSprite)
   
@@ -249,7 +258,7 @@ if run:
       """
       Summary: creates obstacles
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
         xStart: this is the x position of the obstacle <class 'float'>
         yStart: this is the y position of the obstacle <class 'float'>
         offsetX: offset of the x value to make sure it is in the middle <class 'float'>
@@ -257,9 +266,9 @@ if run:
       for rowIndex, row in enumerate(self.shape):
         for colIndex,col in enumerate(row):
           if col == 'x':
-            x = xStart + colIndex * self.blockSize + offsetX
-            y = yStart + rowIndex * self.blockSize
-            block = obstacle.Block(self.blockSize,(241,79,80),x,y)
+            xCoord = xStart + colIndex * self.blockSize + offsetX
+            yCoord = yStart + rowIndex * self.blockSize
+            block = obstacle.Block(self.blockSize,(241,79,80),xCoord,yCoord)
             self.blocks.add(block)
   
     #creates multiple obstacles using create obstacle for every x offset in offset
@@ -267,7 +276,7 @@ if run:
       """
       Summary: creates multiple obstacles
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
         xStart: this is the x position of the obstacle <class 'float'>
         yStart: this is the y position of the obstacle <class 'float'>
         offset: offset is the offset of the coordinates to make it so it is in the middle<class 'tuple'>
@@ -280,7 +289,7 @@ if run:
       """
       Summary: creates aliens using x and y column and row indexes within the range of rows and columns. Makes sure to not create aliens outside the given area
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
         rows: this is the rows of the aliens <class 'int'>
         cols: this is the cols of the aliens <class 'int'>
         xDistance: this has a default value of 60, this is the xdistance of the aliens <class 'int'>
@@ -290,15 +299,15 @@ if run:
       """
       for rowIndex, row in enumerate(range(rows)):
         for colIndex, col in enumerate(range(cols)):
-          x = colIndex * xDistance + xOffset
-          y = rowIndex * yDistance + yOffset
+          xCoord = colIndex * xDistance + xOffset
+          yCoord = rowIndex * yDistance + yOffset
           
           #if row_index = 0, creates alien with the Alien class and yellow image, 1st row from top
-          if rowIndex == 0: alienSprite = Alien('yellow',x,y)
+          if rowIndex == 0: alienSprite = Alien('yellow',xCoord, yCoord)
           #sets alien image to green on second row from top
-          elif 1 <= rowIndex <= 2: alienSprite = Alien('green',x,y)
+          elif 1 <= rowIndex <= 2: alienSprite = Alien('green',xCoord,yCoord)
           #anything else is coloured with red alien image
-          else: alienSprite = Alien('red',x,y)
+          else: alienSprite = Alien('red',xCoord,yCoord)
           #adds aliens
           self.aliens.add(alienSprite)
   
@@ -306,7 +315,7 @@ if run:
       """
       Summary: if alien position hits the end of the screen, moves down aliens one row
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
       """
       allAliens = self.aliens.sprites()
       for alien in allAliens:
@@ -333,7 +342,7 @@ if run:
       """
       Summary: alien shoots laser using Laser class and adds lasers to alien artillery
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
       """
       if self.aliens.sprites():
         randomAlien = choice(self.aliens.sprites())
@@ -345,7 +354,7 @@ if run:
       """
       Summary: this make sure the space ship has a delay in its bullet shooting time
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
       """
       self.extraSpawnTime -= 1
       if self.extraSpawnTime <= 0:
@@ -357,7 +366,7 @@ if run:
       """
       Summary: checks if user collides with laser, if so, removes laser from visuals
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
         score: this is the score that the user has gotten by destroying alien spaceships <class 'int'>
       """
       # player lasers 
@@ -417,7 +426,7 @@ if run:
       """
       Summary: displays amount of lives left, shown bottom right of screen 
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
       """
       for live in range(self.lives - 1):
         x = self.liveXStartPos + (live * (self.liveSurf.get_size()[0] + 10))
@@ -428,7 +437,7 @@ if run:
       """
       Summary: displays score top left of screen
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
         score: this is the score that the user has gotten by destroying alien spaceships <class 'int'>
       """
       scoreSurf = self.font.render(f'score: {score}',False,'white')
@@ -440,7 +449,7 @@ if run:
       """
       Summary: if no more aliens are on screen, runs victory message and screen 
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
       """
       if not self.aliens.sprites():
         victorySurf = self.font.render('You won',False,'white')
@@ -453,7 +462,7 @@ if run:
       """
       Summary: runs main program, updates all functions and includes all necessary variables and functions to run
       Argument:
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
       """
       self.player.update()
       self.alienLasers.update()
@@ -479,7 +488,7 @@ if run:
     def __init__(self):
       """
       Summary: initiation, loads tv border image and scale tv background with desired width and height amount
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
       """
       self.tv = pygame.image.load('tv.png').convert_alpha()
       self.tv = pygame.transform.scale(self.tv,(screenWidth,screenHeight))
@@ -488,7 +497,7 @@ if run:
     def create_crt_lines(self):
       """
       Summary: creates lines for crt and draws line on display in black
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
       """
       lineHeight = 3
       lineAmount = int(screenHeight / lineHeight)
@@ -500,7 +509,7 @@ if run:
     def draw(self):
       """
       Summary: makes tv background slightly transparent, giving retro feel
-        self: 
+        self: Self is provided as a First parameter to the Instance method and constructor 
       """
       self.tv.set_alpha(randint(75,90))
       self.create_crt_lines()
